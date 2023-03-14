@@ -1,0 +1,5 @@
+*.swp
+*.swo
+record.txt
+__pycache__
+taskLog.yaml
