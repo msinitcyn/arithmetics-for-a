@@ -1,0 +1,20 @@
+- level_description: Level 1
+  operands:
+    - [1, 10]
+    - [3, 5]
+  operators: ['+', '-']
+  task_count: 3
+- level_description: Level 2
+  operands:
+    - [6, 9]
+    - [1, 1]
+    - [5, 9]
+  operators: ['*', '+']
+  task_count: 3
+- level_description: Level 3
+  operands:
+    - [100, 1000]
+    - [30, 50]
+  operators: ['+', '-']
+  task_count: 3
+

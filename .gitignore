@@ -3,3 +3,8 @@
 record.txt
 __pycache__
 taskLog.yaml
+
+*.pyc
+*.pyo
+
+afa/
