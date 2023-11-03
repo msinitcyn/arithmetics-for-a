@@ -2,13 +2,14 @@ import unittest
 import sys
 import os
 
+# Add the root directory to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from unittest.mock import Mock, call
 from project.afa.task_builder import TaskBuilder
 from project.afa.task_level_template import TaskLevelTemplate
 from project.afa.task import Task
-
-# Add the root directory to the system path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 class TaskBuilderTests(unittest.TestCase):
     def test_build(self):

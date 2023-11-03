@@ -1,10 +1,11 @@
 import unittest
 import sys
 import os
-from project.afa.yaml_task_level_template_reader import YamlTaskLevelTemplateReader
 
 # Add the root directory to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from project.afa.yaml_task_level_template_reader import YamlTaskLevelTemplateReader
 
 class YamlTaskLevelTemplateReaderTests(unittest.TestCase):
     def test_read_valid_file(self):
