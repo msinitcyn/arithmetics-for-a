@@ -7,5 +7,5 @@ taskLog.yaml
 *.pyc
 *.pyo
 
-afa/
-afa39/
+afa-venv/
+afa39-venv/
