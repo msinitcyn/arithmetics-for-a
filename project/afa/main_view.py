@@ -6,7 +6,7 @@ from .task import Task
 
 class MainView(MainViewABC):
     def init(self, screen):
-        self._log_panel = Panel(screen, 40, 0, 20, 1000)
+        self._log_panel = Panel(screen, 40, 0, 40, 1000)
         self._log_panel.add_border(curses.COLOR_RED)
 
         self._task_panel = Panel(screen, 10, 0, 30, 6)
