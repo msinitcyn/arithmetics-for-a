@@ -2,7 +2,7 @@
 *.swo
 record.txt
 __pycache__
-taskLog.yaml
+log.yaml
 
 *.pyc
 *.pyo

@@ -8,18 +8,24 @@ class MainViewController:
     def __init__(self, main_view: MainViewABC, task_session: TaskSessionABC):
         self._main_view = main_view
         self._task_session = task_session
+        self._status = []
 
     def start(self):
         while True:
             self._current_task = self._task_session.get_next_task()
             self._main_view.set_content(f"{self._current_task.task_string} = ?")
+            self._main_view.set_status(self._status)
             #self._main_view.set_log()
             self._main_view.redraw()
             answer = self._main_view.listen_for_user_answer()
-            if answer == self._current_task.answer:
-                message = "Молодец! Ты ответил правильно!"
+
+            self._status = []
+            self._status.append("Предыдущий пример:")
+            self._status.append(f"{self._current_task.task_string} = {self._current_task.answer}")
+            self._status.append(f"Твой ответ: {int(answer)}")
+            if int(answer) == int(self._current_task.answer):
+                self._status.append("Молодец!")
             else:
-                message = "Неправильно. Попробуй ещё"
-            self._main_view.set_content(f"{self._current_task.task_string} = {self._current_task.answer}")
-            time.sleep(2)
+                self._status.append("Неправильно. Попробуй ещё")
+
             self._task_session.answer_task(self._current_task, answer)

@@ -12,9 +12,13 @@ class MainViewABC(ABC):
         pass
 
     @abstractmethod
-    def set_log(self, log: List[str]) -> None:
+    def set_content(self, current_task: str) -> None:
         pass
 
     @abstractmethod
-    def set_content(self, current_task: str) -> None:
+    def set_status(self, status: List[str]) -> None:
+        pass
+
+    @abstractmethod
+    def set_log(self, log: List[str]) -> None:
         pass

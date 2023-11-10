@@ -11,6 +11,8 @@ from .main_view_abc import MainViewABC
 from .main_view import MainView
 from .task_session_abc import TaskSessionABC
 from .task_session import TaskSession
+from .logger_abc import LoggerABC
+from .yaml_logger import YamlLogger
 
 injector = Injector()
 injector.binder.bind(TaskLevelTemplateReaderABC, to=YamlTaskLevelTemplateReader)
@@ -19,3 +21,4 @@ injector.binder.bind(TaskLevelBuilderABC, to=TaskLevelBuilder)
 injector.binder.bind(TaskBuilderABC, to=TaskBuilder)
 injector.binder.bind(MainViewABC, to=MainView)
 injector.binder.bind(TaskSessionABC, to=TaskSession)
+injector.binder.bind(LoggerABC, to=YamlLogger("log.yaml"))
