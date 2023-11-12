@@ -21,14 +21,11 @@ class MainViewController:
             transformed_list = []
             for index, log_item in enumerate(log, start=1):
                 if int(float(log_item.actual_answer)) == int(float(log_item.correct_answer)):
-                    result_text = "Правильно"
+                    result_text = '✔️'
                 else:
-                    result_text = "Неправильно"
-                first_line = f"{index}. {log_item.example}"
+                    result_text = '❌'
+                first_line = f"{result_text} {log_item.example}"
                 transformed_list.append(first_line)
-                second_line = f"Твой ответ: {int(float(log_item.actual_answer))} - {result_text}"
-                transformed_list.append(second_line)
-                transformed_list.append("")
             self._main_view.set_log(transformed_list)
             self._main_view.redraw()
             answer = self._main_view.listen_for_user_answer()
