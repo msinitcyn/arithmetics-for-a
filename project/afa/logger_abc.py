@@ -4,10 +4,10 @@ from .log_item_model import LogItemModel
 
 class LoggerABC(ABC):
     @abstractmethod
-    def read_log(self) -> List[LogItemModel]:
+    def append_log_item(self, log_item: LogItemModel) -> None:
         pass
     
     @abstractmethod
-    def save_log(self, logitems: List[LogItemModel]) -> None:
+    def get_log(self, count: int) -> List[LogItemModel]:
         pass
 

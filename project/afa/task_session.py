@@ -21,7 +21,6 @@ class TaskSession(TaskSessionABC):
         self._template_file = "templates.yaml"
 
         self._logger = logger
-        self._log = logger.read_log()
         self._task_level_template_reader = task_level_template_reader
         self._task_level_builder = task_level_builder
         self._tasks = None
@@ -41,8 +40,7 @@ class TaskSession(TaskSessionABC):
             date=date.today(),
             correct_answer=task.answer,
             actual_answer=str(answer))
-        self._log.append(logItem)
-        self._logger.save_log(self._log)
+        self._logger.append_log_item(logItem)
 
     def get_next_task(self) -> Task:
         if not self._tasks:
@@ -50,4 +48,4 @@ class TaskSession(TaskSessionABC):
         return self._tasks.popleft()
 
     def get_log(self):
-        return self._log
+        return self._logger.get_log(10)
