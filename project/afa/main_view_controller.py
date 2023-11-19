@@ -13,7 +13,7 @@ class MainViewController:
     def start(self):
         while True:
             self._current_task = self._task_session.get_next_task()
-            self._main_view.set_content(f"{self._current_task.task_string} = ?")
+            self._main_view.set_content(f"{self._current_task.task_string} = ")
             self._main_view.set_status(self._status)
 
             log = self._task_session.get_log()

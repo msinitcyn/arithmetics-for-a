@@ -54,6 +54,7 @@ class Panel(UiContainerABC):
         input_str = ""
         result = ""
         input_label = Label("", x, y)
+
         while True:
             input_label.content = input_str
             self._content = content
@@ -66,7 +67,7 @@ class Panel(UiContainerABC):
                 result = self._convert_string_to_float(input_str.strip())
                 if result is not None:
                     break
-            elif key == 127:  # Backspace
+            elif key == curses.KEY_BACKSPACE or key == 127:  # Backspace
                 input_str = input_str[:-1]
             elif key == 3:  # Ctrl+C
                 raise KeyboardInterrupt
@@ -75,6 +76,7 @@ class Panel(UiContainerABC):
             elif 48 <= key <= 57:  # Numeric characters (ASCII codes 48-57)
                 if len(input_str) < max_input_size:
                     input_str += chr(key)
+
         return result
 
     def _convert_string_to_float(self, s: str) -> float:
@@ -90,9 +92,10 @@ class Panel(UiContainerABC):
             self._window.border()
 
         for line in self._content:
-            y = min(line.y, self.actual_height - 1)
-            x = min(line.x, self.actual_width - 1)
-            max_width = max(0, self.actual_width - line.x - 1)
+            y = min(line.y, self.actual_height - 2)
+            x = min(line.x, self.actual_width - 2)
+            max_width = max(0, self.actual_width - line.x - 2)
+            self._window.addstr(y, x, ' ' * (self.actual_width-x-1))
             self._window.addstr(y, x, line.content[:max_width])
 
         self._window.refresh()
