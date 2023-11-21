@@ -14,12 +14,11 @@ class CursesTuiApp:
         try:
             screen = curses.initscr()
 
-            task_session = injector.get(TaskSession)
             main_view = injector.get(MainView)
             main_view.init(screen)
 
-            main_view_controller = MainViewController(main_view, task_session)
-            main_view_controller.start()
+            main_view_controller = injector.get(MainViewController)
+            main_view_controller.start(main_view)
         except Exception as e:
             print("My exception handler: " + str(e))
             traceback.print_exc()

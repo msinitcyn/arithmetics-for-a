@@ -9,7 +9,3 @@ class TaskSessionABC(ABC):
     @abstractmethod
     def get_next_task(self) -> Task:
         pass
-
-    @abstractmethod
-    def get_log(self):
-        pass

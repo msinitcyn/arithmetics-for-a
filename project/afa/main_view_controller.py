@@ -2,31 +2,25 @@ import time
 from injector import inject
 from .main_view_abc import MainViewABC
 from .task_session_abc import TaskSessionABC
+from .logger_abc import LoggerABC
 
 class MainViewController:
     @inject
-    def __init__(self, main_view: MainViewABC, task_session: TaskSessionABC):
-        self._main_view = main_view
+    def __init__(self, task_session: TaskSessionABC, logger: LoggerABC):
         self._task_session = task_session
+        self._logger = logger
         self._status = []
 
-    def start(self):
+    def start(self, main_view: MainViewABC):
+        self._main_view = main_view
+
         while True:
             self._current_task = self._task_session.get_next_task()
             self._main_view.set_content(f"{self._current_task.task_string} = ")
             self._main_view.set_status(self._status)
 
-            log = self._task_session.get_log()
-            log.reverse()
-            transformed_list = []
-            for index, log_item in enumerate(log, start=1):
-                if int(float(log_item.actual_answer)) == int(float(log_item.correct_answer)):
-                    result_text = '✔️'
-                else:
-                    result_text = '❌'
-                first_line = f"{result_text} {log_item.example}"
-                transformed_list.append(first_line)
-            self._main_view.set_log(transformed_list)
+            self._set_log()
+
             self._main_view.redraw()
             answer = self._main_view.listen_for_user_answer()
 
@@ -40,3 +34,16 @@ class MainViewController:
                 self._status.append("Неправильно. Попробуй ещё")
 
             self._task_session.answer_task(self._current_task, answer)
+
+    def _set_log(self):
+        log = self._logger.get_log(12)
+        log.reverse()
+        transformed_list = []
+        for index, log_item in enumerate(log, start=1):
+            if int(float(log_item.actual_answer)) == int(float(log_item.correct_answer)):
+                result_text = '✔️'
+            else:
+                result_text = '❌'
+            first_line = f"{result_text} {log_item.example}"
+            transformed_list.append(first_line)
+        self._main_view.set_log(transformed_list)

@@ -46,6 +46,3 @@ class TaskSession(TaskSessionABC):
         if not self._tasks:
             self._read_new_tasks()
         return self._tasks.popleft()
-
-    def get_log(self):
-        return self._logger.get_log(10)
