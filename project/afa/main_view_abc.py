@@ -22,3 +22,7 @@ class MainViewABC(ABC):
     @abstractmethod
     def set_log(self, log: List[str]) -> None:
         pass
+
+    @abstractmethod
+    def set_achievements(self, log: List[str]) -> None:
+        pass

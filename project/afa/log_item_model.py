@@ -7,4 +7,4 @@ class LogItemModel:
     date: date
     correct_answer: float
     actual_answer: float
-
+    is_correct: bool = False

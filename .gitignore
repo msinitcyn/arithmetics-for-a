@@ -3,6 +3,7 @@
 record.txt
 __pycache__
 log.yaml
+achievements.yaml
 
 *.pyc
 *.pyo

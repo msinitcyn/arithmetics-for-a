@@ -1,4 +1,5 @@
 from injector import inject
+from typing import List
 from .task_builder_abc import TaskBuilderABC
 from .task import Task
 from .task_level_template import TaskLevelTemplate

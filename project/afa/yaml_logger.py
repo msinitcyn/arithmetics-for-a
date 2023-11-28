@@ -1,6 +1,6 @@
-from typing import List
 import os
 import yaml
+from typing import List, Optional
 
 from .log_item_model import LogItemModel
 from .logger_abc import LoggerABC
@@ -32,8 +32,11 @@ class YamlLogger(LoggerABC):
         self._log_items.append(log_item)
         self._save_log_items()
 
-    def get_log(self, count: int) -> List[LogItemModel]:
+    def get_log(self, count: Optional[int] = None) -> List[LogItemModel]:
         if self._log_items is None:
             self._load_log_items()
+
+        if count is None:
+            return self._log_items
 
         return self._log_items[-min(count, len(self._log_items)):]

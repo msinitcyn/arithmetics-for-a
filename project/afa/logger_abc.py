@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 from .log_item_model import LogItemModel
 
 class LoggerABC(ABC):
@@ -8,6 +8,6 @@ class LoggerABC(ABC):
         pass
     
     @abstractmethod
-    def get_log(self, count: int) -> List[LogItemModel]:
+    def get_log(self, count: Optional[int] = None) -> List[LogItemModel]:
         pass
 

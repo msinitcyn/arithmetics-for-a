@@ -31,16 +31,16 @@ class MainView(MainViewABC):
         self._status_panel.add_border(curses.COLOR_RED) 
         self._status_panel_title = 'Статус:'
 
-        self._achievement_panel = Panel(screen, 40, 26, 55, 10)
-        self._achievement_panel.add_border(curses.COLOR_RED)
-        self._achievement_panel.title = 'Достижения:'
+        self._achievements_panel = Panel(screen, 40, 26, 55, 10)
+        self._achievements_panel.add_border(curses.COLOR_RED)
+        self._achievements_panel.title = 'Достижения:'
 
     def redraw(self) -> None:
         self._header_panel.redraw()
         self._log_panel.redraw()
         self._task_panel.redraw()
         self._status_panel.redraw()
-        self._achievement_panel.redraw()
+        self._achievements_panel.redraw()
 
     def listen_for_user_answer(self) -> int:
         answer = None
@@ -57,3 +57,6 @@ class MainView(MainViewABC):
 
     def set_log(self, log: List[str]) -> None:
         self._log_panel.set_content([self._log_panel_title, ''] + log, 1, 1)
+
+    def set_achievements(self, log: List[str]) -> None:
+        self._achievements_panel.set_content([self._log_panel_title, ''] + log, 1, 1)
