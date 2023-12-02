@@ -1,6 +1,6 @@
 from injector import inject
 from collections import deque
-from datetime import date
+from datetime import datetime
 from .logger_abc import LoggerABC
 from .log_item_model import LogItemModel
 from .task_session_abc import TaskSessionABC
@@ -36,10 +36,11 @@ class TaskSession(TaskSessionABC):
 
     def answer_task(self, task: Task, answer: float) -> None:
         logItem = LogItemModel(
-            example=task.full_task_string,
-            date=date.today(),
-            correct_answer=task.answer,
-            actual_answer=str(answer))
+            example = task.full_task_string,
+            datetime = datetime.now(),
+            correct_answer = task.answer,
+            actual_answer = str(answer),
+            is_correct = int(answer) == int(float(task.answer)))
         self._logger.append_log_item(logItem)
 
     def get_next_task(self) -> Task:

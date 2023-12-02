@@ -1,10 +1,10 @@
-from datetime import date
+from datetime import datetime
 from dataclasses import dataclass
 
 @dataclass
 class LogItemModel:
     example: str
-    date: date
+    datetime: datetime
     correct_answer: float
     actual_answer: float
     is_correct: bool = False

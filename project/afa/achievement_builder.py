@@ -7,7 +7,7 @@ class AchievementBuilder(AchievementBuilderABC):
 
     def __init__(self):
         self._achievements = []
-        self._achievements.append(Achievement("some","some description",has_twenty_correct_answers))
+        self._achievements.append(Achievement("2-задачи", "🎉", "решил две задачи правильно", has_twenty_correct_answers))
 
     def build_achievements(self) -> List[Achievement]:
         return self._achievements
@@ -19,7 +19,7 @@ def has_twenty_correct_answers(log_items: List[LogItemModel]) -> bool:
         if log_item.is_correct:
             correct_answer_count += 1
 
-        if correct_answer_count >= 20:
+        if correct_answer_count >= 2:
             return True
 
     return False

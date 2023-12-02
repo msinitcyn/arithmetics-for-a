@@ -33,7 +33,7 @@ class MainView(MainViewABC):
 
         self._achievements_panel = Panel(screen, 40, 26, 55, 10)
         self._achievements_panel.add_border(curses.COLOR_RED)
-        self._achievements_panel.title = 'Достижения:'
+        self._achievements_panel_title = 'Достижения:'
 
     def redraw(self) -> None:
         self._header_panel.redraw()
@@ -58,5 +58,5 @@ class MainView(MainViewABC):
     def set_log(self, log: List[str]) -> None:
         self._log_panel.set_content([self._log_panel_title, ''] + log, 1, 1)
 
-    def set_achievements(self, log: List[str]) -> None:
-        self._achievements_panel.set_content([self._log_panel_title, ''] + log, 1, 1)
+    def set_achievements(self, achievements: List[str]) -> None:
+        self._achievements_panel.set_content([self._achievements_panel_title, ''] + achievements, 1, 1)

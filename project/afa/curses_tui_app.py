@@ -20,6 +20,7 @@ class CursesTuiApp:
             main_view_controller = injector.get(MainViewController)
             main_view_controller.start(main_view)
         except Exception as e:
+            curses.endwin()
             print("My exception handler: " + str(e))
             traceback.print_exc()
 

@@ -1,10 +1,12 @@
+import curses
 from injector import inject
 from typing import List
 from .logger_abc import LoggerABC
+from .achievement import Achievement
+from .unlocked_achievement_model import UnlockedAchievementModel
 from .achievement_service_abc import AchievementServiceABC
 from .achievement_builder_abc import AchievementBuilderABC
 from .unlocked_achievement_storage_abc import UnlockedAchievementStorageABC
-from .achievement import Achievement
 
 class AchievementService(AchievementServiceABC):
 
@@ -21,12 +23,18 @@ class AchievementService(AchievementServiceABC):
         need_to_update_unlocked_achievements = False
         for achievement in self._locked_achievements.copy():
             if achievement.unlock(log):
+                #curses.endwin()
+                #breakpoint()
                 self._locked_achievements.remove(achievement)
                 self._unlocked_achievements.append(achievement)
-                need_to_updatet_unlocked_achievements = True
+                need_to_update_unlocked_achievements = True
 
         if need_to_update_unlocked_achievements:
-            self._unlocked_achievement_storage.save_unlocked_achievements(self._unlocked_achievements)
+            unlocked_achievements = [
+                UnlockedAchievementModel(name=unlocked_achievement.name, unlocked_datetime=unlocked_achievement.unlocked_datetime)
+                for unlocked_achievement in self._unlocked_achievements
+            ]
+            self._unlocked_achievement_storage.save_unlocked_achievements(unlocked_achievements)
 
     def get_unlocked_achievements(self) -> List[Achievement]:
         if self._locked_achievements == [] and self._unlocked_achievements == []:
@@ -34,15 +42,12 @@ class AchievementService(AchievementServiceABC):
         return self._unlocked_achievements
 
     def _load_achievements(self) -> None:
-        self._locked_achievements = []
-        self._unlocked_achievements = []
-
         all_achievements = self._achievement_builder.build_achievements()
-        previously_unlocked_achievements = self._unlocked_achievement_storage.load_unlocked_achievements()
+        unlocked_achievement_models = self._unlocked_achievement_storage.load_unlocked_achievements()
 
         for achievement in all_achievements:
-            matching_unlocked = next((unlocked_achievement for unlocked_achievement in previously_unlocked_achievements
-               if unlocked_achievement.name == achievement.name), None)
+            matching_unlocked = next((unlocked_achievement for unlocked_achievement_model in unlocked_achievement_models
+               if unlocked_achievement_model.name == achievement.name), None)
 
             if matching_unlocked:
                 achievement.is_unlocked = True

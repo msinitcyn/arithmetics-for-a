@@ -37,7 +37,7 @@ class MainViewController:
         log.reverse()
         transformed_list = []
         for index, log_item in enumerate(log, start=1):
-            if int(float(log_item.actual_answer)) == int(float(log_item.correct_answer)):
+            if log_item.is_correct:
                 result_text = '✔️'
             else:
                 result_text = '❌'
